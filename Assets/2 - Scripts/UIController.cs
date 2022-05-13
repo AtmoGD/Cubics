@@ -9,8 +9,10 @@ public class UIController : MonoBehaviour
 {
     [SerializeField] private TMP_Text scoreText;
     [SerializeField] private TMP_Text waveText;
-    [SerializeField] private TMP_Text manaSectionText;
-    [SerializeField] private Image manaSectionImage;
+    // [SerializeField] private TMP_Text manaSectionText;
+    // [SerializeField] private Image manaSectionImage;
+    [SerializeField] private Image dashCooldownImage;
+    [SerializeField] private Image shieldCooldownImage;
     [SerializeField] private List<Image> manaImages = new List<Image>();
 
     public void Start()
@@ -20,14 +22,23 @@ public class UIController : MonoBehaviour
 
         scoreText.text = GameController.instance.Score.ToString();
         waveText.text = SpawnController.instance.WaveCount.ToString();
-
-
-        
     }
 
     private void Update() {
-        manaSectionText.text = "Mana: " + CubeController.instance.ManaSections;
-        manaSectionImage.fillAmount = CubeController.instance.Mana / CubeController.instance.GetMaxMana();
+        // manaSectionText.text = "Mana: " + CubeController.instance.ManaSections;
+        // manaSectionImage.fillAmount = CubeController.instance.Mana / CubeController.instance.GetMaxMana();
+
+        dashCooldownImage.fillAmount = CubeController.instance.DashCooldown / CubeController.instance.DashDuration;
+        if(dashCooldownImage.fillAmount > 0f)
+            dashCooldownImage.gameObject.SetActive(true);
+        else
+            dashCooldownImage.gameObject.SetActive(false);
+
+        shieldCooldownImage.fillAmount = CubeController.instance.ShieldTimeLeft / CubeController.instance.ShieldDuration;
+        if(shieldCooldownImage.fillAmount > 0f)
+            shieldCooldownImage.gameObject.SetActive(true);
+        else
+            shieldCooldownImage.gameObject.SetActive(false);
 
         for (int i = 1; i < manaImages.Count + 1; i++)
             manaImages[i - 1].fillAmount = CubeController.instance.ManaSections >= i ? 1 : 0;

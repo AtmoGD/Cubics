@@ -20,9 +20,12 @@ public class CubeController : MonoBehaviour, Damagable
     [SerializeField] private float dashSpeed = 10f;
     [SerializeField] private float dashMaxSpeed = 10f;
     [SerializeField] private float dashDuration = 0.5f;
+    public float DashDuration { get { return dashDuration; } }
     [SerializeField] private float wallDieDelayDuringDash = 0.2f;
     [SerializeField] private float dashManaRegeneration = 0f;
     [SerializeField] private float shieldCosts = 1f;
+    [SerializeField] private float shieldDuration = 1f;
+    public float ShieldDuration { get { return shieldDuration; } }
     public float Mana { get; set; }
     [SerializeField] private float maxMana = 100f;
     [SerializeField] private float manaSectionSize = 40f;
@@ -30,6 +33,10 @@ public class CubeController : MonoBehaviour, Damagable
     public float ManaSections { get { return Mana / manaSectionSize; } }
     public Vector2 FlyDirection { get; private set; }
     private float dashTimeLeft = 0f;
+    private float shieldTimeLeft = 0f;
+    public float ShieldTimeLeft { get { return shieldTimeLeft; } }
+    public float DashCooldown { get {return dashTimeLeft; } }
+    public bool IsDashing { get { return dashTimeLeft > 0f; } }
     private float dashEmissionRate = 0f;
 
 
@@ -51,6 +58,7 @@ public class CubeController : MonoBehaviour, Damagable
     private void Update()
     {
         dashTimeLeft -= Time.deltaTime;
+        shieldTimeLeft -= Time.deltaTime;
     }
 
     private void FixedUpdate()
@@ -131,13 +139,11 @@ public class CubeController : MonoBehaviour, Damagable
 
     public void ShieldInput(InputAction.CallbackContext context)
     {
-        print("Mana Sections: " + ManaSections);
-        print("Shield Costs: " + shieldCosts);
-        
-        if(context.performed && ManaSections >= shieldCosts)
+        if(context.performed && shieldTimeLeft <= 0 && ManaSections >= shieldCosts)
         {
             ShieldController shield = Instantiate(this.shield, transform.position, Quaternion.identity, this.transform).GetComponent<ShieldController>();
             Mana -= shieldCosts * manaSectionSize;
+            shieldTimeLeft = shieldDuration;
         }
     }
 
