@@ -9,10 +9,20 @@ public class GameController : MonoBehaviour
     public Action<int> OnScoreChanged;
     [SerializeField] private CinemachineVirtualCamera vcam;
     [SerializeField] float gain = 0.5f;
+    [SerializeField] float amplitudeMin = 1f;
+    [SerializeField] float amplitudeMax = 5f;
+    [SerializeField] float frequencyMin = 10.1f;
+    [SerializeField] float frequencyMax = 1f;
+    [SerializeField] float durationMin = 1f;
+    [SerializeField] float durationMax = 2f;
     public static GameController instance;
     public int Score { get; private set; }
     public CubeController Player { get; private set; }
     private CinemachineBasicMultiChannelPerlin noise;
+
+    private float cameraAmplitude;
+    private float cameraFrequency;
+    private float cameraShakeLeft;
 
     private void Awake() {
         if (!instance)
@@ -29,12 +39,31 @@ public class GameController : MonoBehaviour
         noise.m_AmplitudeGain = 0f;
         noise.m_FrequencyGain = 0f;
     }
+
+    private void Update() {
+        if (cameraShakeLeft > 0f) {
+            cameraShakeLeft -= Time.deltaTime;
+            noise.m_AmplitudeGain = cameraAmplitude;
+            noise.m_FrequencyGain = cameraFrequency;
+        } else {
+            noise.m_AmplitudeGain = 0f;
+            noise.m_FrequencyGain = 0f;
+            cameraAmplitude = 0f;
+            cameraFrequency = 0f;
+        }
+    }
     // Add Score
-    public void AddScore(int amount, bool addMana = false, float multiAmplitude = 0.52f, float multiFrequency = 0.56f, float duration = 0.28f) {
+    public void AddScore(int amount, bool addMana = false, float multiAmplitude = 1f, float multiFrequency = 1f, float duration = 0.1f) {
         Score += amount;
         OnScoreChanged?.Invoke(Score);
         Player.AddMana(addMana ? amount : 0); 
-        StartCoroutine(CameraShake(multiAmplitude, multiFrequency, duration, amount));
+        cameraAmplitude += gain * multiAmplitude * amount;
+        cameraAmplitude = Mathf.Clamp(cameraAmplitude, amplitudeMin, amplitudeMax);
+        cameraFrequency += gain * multiFrequency * amount;
+        cameraFrequency = Mathf.Clamp(cameraFrequency, frequencyMin, frequencyMax);
+        cameraShakeLeft += duration * amount;
+        cameraShakeLeft = Mathf.Clamp(cameraShakeLeft, durationMin, durationMax);
+        // StartCoroutine(CameraShake(multiAmplitude, multiFrequency, duration, amount));
     }
 
     public IEnumerator CameraShake(float multiplierAmplitude, float multiplierFrequency,  float duration, float multiplier = 1f) {

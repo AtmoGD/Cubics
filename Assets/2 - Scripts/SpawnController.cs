@@ -15,6 +15,7 @@ public class SpawnController : MonoBehaviour
     [SerializeField] private float waveTime;
     [SerializeField] private float waveTimeMin;
     [SerializeField] private float waveTimeSpeedIncrease;
+    [SerializeField] private Transform spawnPoint;
     public int WaveCount { get; private set; }
 
     private void Awake()
@@ -38,7 +39,7 @@ public class SpawnController : MonoBehaviour
         {
             Vector3 pos = new Vector3(UnityEngine.Random.Range(-spawnSize, spawnSize), UnityEngine.Random.Range(-spawnSize, spawnSize), 0);
             GameObject cube = prefabs[UnityEngine.Random.Range(0, prefabs.Count)];
-            Instantiate(cube, pos, Quaternion.identity, transform);
+            Instantiate(cube, spawnPoint.position + pos, Quaternion.identity, transform);
         }
 
         waveTime = waveTime < waveTimeMin ? waveTimeMin : waveTime - waveTimeSpeedIncrease;

@@ -50,7 +50,7 @@ public class WallController : MonoBehaviour, Damagable
 
         if (diePrefab) Instantiate(diePrefab, transform.position, Quaternion.identity);
         
-        GameController.instance.AddScore(pointsWorth, addMana);
+        GameController.instance.AddScore(pointsWorth, addMana, 1f, 1f, 0.05f);
 
         animator.SetTrigger("Die");
 

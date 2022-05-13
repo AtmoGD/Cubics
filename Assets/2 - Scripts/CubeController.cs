@@ -12,6 +12,7 @@ public class CubeController : MonoBehaviour, Damagable
     [SerializeField] private GameObject laserPrefab;
     [SerializeField] private ParticleSystem dashParticles;
     [SerializeField] private ParticleSystem.EmissionModule dashParticlesEmission;
+    [SerializeField] private bool startWithFullMana = false;
     [SerializeField] private float speed = 10f;
     [SerializeField] private float maxSpeed = 100f;
     [SerializeField] private float rotationSpeed = 0.1f;
@@ -48,8 +49,9 @@ public class CubeController : MonoBehaviour, Damagable
             Destroy(gameObject);
 
         FlyDirection = Vector2.zero;
+        Mana = startWithFullMana ? maxMana : 0f;
         // mana = maxMana;
-        Mana = 0f;
+        // Mana = 0f;
 
         dashParticlesEmission = dashParticles.emission;
         dashEmissionRate = dashParticlesEmission.rateOverTime.constant;
