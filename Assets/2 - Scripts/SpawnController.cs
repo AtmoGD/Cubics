@@ -16,6 +16,8 @@ public class SpawnController : MonoBehaviour
     [SerializeField] private float waveTimeMin;
     [SerializeField] private float waveTimeSpeedIncrease;
     [SerializeField] private Transform spawnPoint;
+
+    public int WallCount { get; private set; }
     public int WaveCount { get; private set; }
 
     private void Awake()
@@ -42,12 +44,18 @@ public class SpawnController : MonoBehaviour
             Instantiate(cube, spawnPoint.position + pos, Quaternion.identity, transform);
         }
 
+        WallCount += wallCount;
         waveTime = waveTime < waveTimeMin ? waveTimeMin : waveTime - waveTimeSpeedIncrease;
         WaveCount++;
         OnWaveChanged?.Invoke(WaveCount);
 
 
         StartCoroutine(Spawn());
+    }
+
+    public void WallDie(int amount = 1)
+    {
+        WallCount -= amount;
     }
 
 

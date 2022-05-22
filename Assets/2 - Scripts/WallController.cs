@@ -34,7 +34,7 @@ public class WallController : MonoBehaviour, Damagable
 
     private void FixedUpdate() {
         if(isDead) return;
-        
+
         Vector3 movement = (controller.transform.position - transform.position) * speed * Time.fixedDeltaTime;
         rb.velocity = movement;
         // rb.MovePosition(Vector3.MoveTowards(transform.position, controller.transform.position, speed * Time.fixedDeltaTime));
@@ -61,6 +61,8 @@ public class WallController : MonoBehaviour, Damagable
         animator.SetTrigger("Die");
 
         Destroy(gameObject, dieDelay);
+        
+        SpawnController.instance.WallDie();
     }
 
     public void TakeDamage(float damage)

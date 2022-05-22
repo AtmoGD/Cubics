@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Cinemachine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class GameController : MonoBehaviour
     [SerializeField] float frequencyMax = 1f;
     [SerializeField] float durationMin = 1f;
     [SerializeField] float durationMax = 2f;
+    [SerializeField] public int maxEnemys = 100;
     public static GameController instance;
     public int Score { get; private set; }
     public CubeController Player { get; private set; }
@@ -41,6 +43,12 @@ public class GameController : MonoBehaviour
     }
 
     private void Update() {
+
+        if(SpawnController.instance.WallCount > maxEnemys) {
+            GameOver();
+            return;
+        }
+
         if (cameraShakeLeft > 0f) {
             cameraShakeLeft -= Time.deltaTime;
             noise.m_AmplitudeGain = cameraAmplitude;
@@ -51,6 +59,10 @@ public class GameController : MonoBehaviour
             cameraAmplitude = 0f;
             cameraFrequency = 0f;
         }
+    }
+    //Game Over -> Reload the scene
+    public void GameOver() {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     // Add Score
     public void AddScore(int amount, bool addMana = false, float multiAmplitude = 1f, float multiFrequency = 1f, float duration = 0.1f) {
