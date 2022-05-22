@@ -33,6 +33,8 @@ public class WallController : MonoBehaviour, Damagable
     }
 
     private void FixedUpdate() {
+        if(isDead) return;
+        
         Vector3 movement = (controller.transform.position - transform.position) * speed * Time.fixedDeltaTime;
         rb.velocity = movement;
         // rb.MovePosition(Vector3.MoveTowards(transform.position, controller.transform.position, speed * Time.fixedDeltaTime));
@@ -43,10 +45,14 @@ public class WallController : MonoBehaviour, Damagable
         dieDelay = delay;
     }
 
-    public void Die(float delay = 0f, bool addMana = true) {
+    public void Die(Vector2 knockback, float delay = 0f, bool addMana = true) {
         if (isDead) return;
         
         isDead = true;
+
+        if(knockback != Vector2.zero) {
+            rb.AddForce(knockback, ForceMode.Impulse);
+        }
 
         if (diePrefab) Instantiate(diePrefab, transform.position, Quaternion.identity);
         
@@ -65,7 +71,7 @@ public class WallController : MonoBehaviour, Damagable
 
         if (health <= 0)
         {
-            Die();
+            Die(Vector2.zero);
         }
     }
 }

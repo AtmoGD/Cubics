@@ -40,8 +40,15 @@ public class UIController : MonoBehaviour
         else
             shieldCooldownImage.gameObject.SetActive(false);
 
-        for (int i = 1; i < manaImages.Count + 1; i++)
-            manaImages[i - 1].fillAmount = CubeController.instance.ManaSections >= i ? 1 : 0;
+        for(int i = 0; i < manaImages.Count; i++) {
+            if(i < CubeController.instance.ManaSections)
+                manaImages[i].gameObject.SetActive(true);
+            else
+                manaImages[i].gameObject.SetActive(false);
+        }
+
+        // for (int i = 1; i < manaImages.Count + 1; i++)
+        //     manaImages[i - 1].fillAmount = CubeController.instance.ManaSections >= i ? 1 : 0;
     }
 
     public void OnScoreChanged(int score)

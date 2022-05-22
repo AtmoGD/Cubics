@@ -98,8 +98,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 7459757194299903572}
   lifetime: 1
+  knockback: 3
   rotationMaxSpeed: 1
   destroyDelay: 1.2
+  cube: {fileID: 0}
 --- !u!64 &8734699505531255251
 MeshCollider:
   m_ObjectHideFlags: 0

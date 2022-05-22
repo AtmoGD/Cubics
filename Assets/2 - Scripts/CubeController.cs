@@ -96,7 +96,7 @@ public class CubeController : MonoBehaviour, Damagable
     }
 
     //Die
-    public void Die(float delay, bool addMana)
+    public void Die(Vector2 knockback, float delay, bool addMana)
     {
         Destroy(gameObject);
     }
@@ -144,6 +144,7 @@ public class CubeController : MonoBehaviour, Damagable
         if(context.performed && shieldTimeLeft <= 0 && ManaSections >= shieldCosts)
         {
             ShieldController shield = Instantiate(this.shield, transform.position, Quaternion.identity, this.transform).GetComponent<ShieldController>();
+            shield.Init(this);
             Mana -= shieldCosts * manaSectionSize;
             shieldTimeLeft = shieldDuration;
         }
@@ -157,7 +158,7 @@ public class CubeController : MonoBehaviour, Damagable
                 Damagable damagable = collision.gameObject.GetComponent<Damagable>();
 
                 if(damagable != null)
-                    damagable.Die(wallDieDelayDuringDash, true);
+                    damagable.Die(Vector2.zero, wallDieDelayDuringDash, true);
             }
         }
     }

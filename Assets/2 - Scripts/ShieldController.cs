@@ -10,13 +10,22 @@ public class ShieldController : MonoBehaviour
     // [SerializeField] private float startScale = 0f;
     // [SerializeField] private float endScale = 1f;
     [SerializeField] private float lifetime = 1f;
+    [SerializeField] private float knockback = 0f;
     private float timeSinceStarted = 0f;
     private Vector3 rotationDirection = Vector3.zero;
     private float rotationSpeed = 0f;
     [SerializeField] private float rotationMaxSpeed = 0f;
     [SerializeField] private float destroyDelay = 0f;
-    private void Awake() {
+    [SerializeField] private CubeController cube;
+    private void Awake()
+    {
         animator = GetComponent<Animator>();
+    }
+
+    public void Init(CubeController _cube)
+    {
+        cube = _cube;
+
     }
 
     // Start is called before the first frame update
@@ -33,27 +42,10 @@ public class ShieldController : MonoBehaviour
         transform.Rotate(rotationDirection * rotationSpeed * Time.deltaTime);
 
         timeSinceStarted += Time.deltaTime;
-        if (timeSinceStarted >= lifetime) {
+        if (timeSinceStarted >= lifetime)
+        {
             Die();
         }
-        // float t = timeSinceStarted / lifetime;
-        // t = Mathf.Clamp01(t);
-        // float scale = Mathf.Lerp(transform.localScale.magnitude, endScale, t);
-        // transform.localScale = new Vector3(scale, scale, scale);
-        // if (t >= 1f)
-        //     Die();
-
-
-
-
-
-        // timeSinceStarted += Time.deltaTime;
-        // float t = timeSinceStarted / lifetime;
-        // float size = Mathf.Lerp(startScale, endScale, t);
-        // transform.localScale = new Vector3(size, size, size);
-
-        // if (t >= 1f)
-        //     Destroy(gameObject);
     }
 
     //Die
@@ -70,7 +62,7 @@ public class ShieldController : MonoBehaviour
         {
             Damagable damagable = other.gameObject.GetComponent<Damagable>();
             if (damagable != null)
-                damagable.Die(0f, false);
+                damagable.Die((other.transform.position - cube.transform.position) * knockback, 0f, false);
             // other.gameObject.GetComponent<WallController>()?.Die();
         }
     }
@@ -82,7 +74,7 @@ public class ShieldController : MonoBehaviour
         {
             Damagable damagable = collision.gameObject.GetComponent<Damagable>();
             if (damagable != null)
-                damagable.Die(0f, false);
+                damagable.Die(Vector2.zero, 0f, false);
         }
     }
 
