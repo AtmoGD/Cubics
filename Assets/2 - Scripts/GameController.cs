@@ -76,7 +76,7 @@ public class GameController : MonoBehaviour
     public void GameOver() {
         if(Score > HighScore)
             HighScore = Score;
-            
+
         UIController.instance.GameOver();
     }
 

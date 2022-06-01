@@ -15,12 +15,21 @@ public class LaserController : MonoBehaviour
     private void Start() {
         Sender = null;
 
+        // timeLeft = maxLifetime;
+
+        // rb.velocity = transform.forward * -speed;
+    }
+
+    public void StartFlying() {
         timeLeft = maxLifetime;
 
         rb.velocity = transform.forward * -speed;
     }
 
     private void FixedUpdate() {
+
+        // rb.velocity = transform.forward * -speed;
+
         timeLeft -= Time.fixedDeltaTime;
         if (timeLeft <= 0) 
             Destroy(gameObject);

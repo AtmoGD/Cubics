@@ -49,6 +49,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "RotateToMouse",
+                    "type": "Value",
+                    "id": "6faa3367-1fad-480a-9ac3-c2a28f046df1",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -131,17 +140,6 @@
                 },
                 {
                     "name": "",
-                    "id": "484ff726-2220-4db9-a974-36ffbcd0c25f",
-                    "path": "<Keyboard>/shift",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Shoot",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "f5a9cef7-0742-4808-8f7d-8a963f123407",
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
@@ -154,7 +152,7 @@
                 {
                     "name": "",
                     "id": "47976ade-95e7-4a77-abcc-3770f3bcb72d",
-                    "path": "<Keyboard>/ctrl",
+                    "path": "<Keyboard>/shift",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -186,12 +184,34 @@
                 },
                 {
                     "name": "",
+                    "id": "cfc99414-817c-43ae-bac1-ef6e54807c9f",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shield",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "a1bd342c-b84c-472b-8875-4ecd45a74352",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "412ae4b7-2d78-4eaa-81ed-2a66836d201d",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RotateToMouse",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
