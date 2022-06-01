@@ -59,8 +59,6 @@ public class SpawnController : MonoBehaviour
         WallCount -= amount;
     }
 
-
-
     IEnumerator Spawn()
     {
         yield return new WaitForSeconds(waveTime);

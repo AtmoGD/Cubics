@@ -10,6 +10,7 @@ public class LaserController : MonoBehaviour
     [SerializeField] private float maxLifetime;
     [SerializeField] private float damage;
     [SerializeField] private float timeLeft = 0f;
+    public GameObject Sender { get; set; }
 
     private void Start() {
         Sender = null;
@@ -18,8 +19,6 @@ public class LaserController : MonoBehaviour
 
         rb.velocity = transform.forward * -speed;
     }
-
-    public GameObject Sender { get; set; }
 
     private void FixedUpdate() {
         timeLeft -= Time.fixedDeltaTime;

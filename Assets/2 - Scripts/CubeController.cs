@@ -50,8 +50,6 @@ public class CubeController : MonoBehaviour, Damagable
 
         FlyDirection = Vector2.zero;
         Mana = startWithFullMana ? maxMana : 0f;
-        // mana = maxMana;
-        // Mana = 0f;
 
         dashParticlesEmission = dashParticles.emission;
         dashEmissionRate = dashParticlesEmission.rateOverTime.constant;
@@ -95,7 +93,6 @@ public class CubeController : MonoBehaviour, Damagable
 
     }
 
-    //Die
     public void Die(Vector2 knockback, float delay, bool addMana)
     {
         Destroy(gameObject);

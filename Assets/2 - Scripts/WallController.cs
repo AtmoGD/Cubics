@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class WallController : MonoBehaviour, Damagable
 {
-    // wall which has a small amount of health. walls always going to cubeController
     private Rigidbody rb;
     private Animator animator;
     [SerializeField] private int pointsWorth;
@@ -14,9 +13,7 @@ public class WallController : MonoBehaviour, Damagable
     [SerializeField] private float dieDelay = 0f;
     private float health = 100f;
     [SerializeField] private float maxHealth = 100f;
-
     [SerializeField] private GameObject diePrefab;
-
     private CubeController controller;
     private bool isDead = false;
 
@@ -37,10 +34,8 @@ public class WallController : MonoBehaviour, Damagable
 
         Vector3 movement = (controller.transform.position - transform.position) * speed * Time.fixedDeltaTime;
         rb.velocity = movement;
-        // rb.MovePosition(Vector3.MoveTowards(transform.position, controller.transform.position, speed * Time.fixedDeltaTime));
     }
 
-    //Set Die Delay
     public void SetDieDelay(float delay) {
         dieDelay = delay;
     }

@@ -31,8 +31,6 @@ public class GameController : MonoBehaviour
             instance = this;
         else
             Destroy(gameObject);
-
-        
     }
 
     private void Start() {
@@ -60,11 +58,11 @@ public class GameController : MonoBehaviour
             cameraFrequency = 0f;
         }
     }
-    //Game Over -> Reload the scene
+
     public void GameOver() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-    // Add Score
+
     public void AddScore(int amount, bool addMana = false, float multiAmplitude = 1f, float multiFrequency = 1f, float duration = 0.1f) {
         Score += amount;
         OnScoreChanged?.Invoke(Score);
@@ -75,7 +73,6 @@ public class GameController : MonoBehaviour
         cameraFrequency = Mathf.Clamp(cameraFrequency, frequencyMin, frequencyMax);
         cameraShakeLeft += duration * amount;
         cameraShakeLeft = Mathf.Clamp(cameraShakeLeft, durationMin, durationMax);
-        // StartCoroutine(CameraShake(multiAmplitude, multiFrequency, duration, amount));
     }
 
     public IEnumerator CameraShake(float multiplierAmplitude, float multiplierFrequency,  float duration, float multiplier = 1f) {
@@ -84,6 +81,5 @@ public class GameController : MonoBehaviour
         yield return new WaitForSeconds(duration * gain);
         noise.m_AmplitudeGain = 0;
         noise.m_FrequencyGain = 0;
-
     }
 }
