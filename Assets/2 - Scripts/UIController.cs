@@ -7,11 +7,11 @@ using TMPro;
 
 public class UIController : MonoBehaviour
 {
+    [SerializeField] private GameObject startUI;
+    [SerializeField] private GameObject gameUI;
     [SerializeField] private TMP_Text scoreText;
     [SerializeField] private TMP_Text waveText;
     [SerializeField] private TMP_Text enemyCountText;
-    // [SerializeField] private TMP_Text manaSectionText;
-    // [SerializeField] private Image manaSectionImage;
     [SerializeField] private Image dashCooldownImage;
     [SerializeField] private Image shieldCooldownImage;
     [SerializeField] private Slider worldEnemyCountSlider;
@@ -26,6 +26,13 @@ public class UIController : MonoBehaviour
 
         scoreText.text = GameController.instance.Score.ToString();
         waveText.text = SpawnController.instance.WaveCount.ToString();
+    }
+
+    public void StartGame()
+    {
+        startUI.SetActive(false);
+        gameUI.SetActive(true);
+        SpawnController.instance.GenerateRoom();
     }
 
     private void Update() {

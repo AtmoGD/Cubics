@@ -6,8 +6,8 @@ using System;
 public class SpawnController : MonoBehaviour
 {
     public static SpawnController instance;
-
     public Action<int> OnWaveChanged;
+    [SerializeField] private bool autoStart = false;
     [SerializeField] private List<GameObject> prefabs = new List<GameObject>();
     [SerializeField] private int objectsCountMin;
     [SerializeField] private int objectsCountMax;
@@ -31,7 +31,8 @@ public class SpawnController : MonoBehaviour
     public void Start()
     {
         WaveCount = 0;
-        GenerateRoom();
+        if(autoStart)
+            GenerateRoom();
     }
 
     public void GenerateRoom()
