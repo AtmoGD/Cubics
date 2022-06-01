@@ -2,15 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
 using TMPro;
 
 public class UIController : MonoBehaviour
 {
+    public static UIController instance;
     [SerializeField] private GameObject startUI;
     [SerializeField] private GameObject gameUI;
     [SerializeField] private GameObject pauseUI;
+    [SerializeField] private GameObject endUI;
     [SerializeField] private TMP_Text scoreText;
+    [SerializeField] private TMP_Text endScoreText;
+    [SerializeField] private TMP_Text highScoreText;
     [SerializeField] private TMP_Text waveText;
     [SerializeField] private TMP_Text enemyCountText;
     [SerializeField] private Image dashCooldownImage;
@@ -20,12 +23,20 @@ public class UIController : MonoBehaviour
     [SerializeField] private float shieldActiveTime = 0f;
     [SerializeField] private float worldMaxEnemyLerpSpeed = 1f;
 
+    private void Awake() {
+        if (!instance)
+            instance = this;
+        else
+            Destroy(gameObject);
+    }
+
     public void Start()
     {
         startUI.SetActive(true);
         gameUI.SetActive(false);
         pauseUI.SetActive(false);
-        
+        endUI.SetActive(false);
+
         GameController.instance.OnScoreChanged += OnScoreChanged;
         SpawnController.instance.OnWaveChanged += OnWaveChanged;
 
@@ -55,7 +66,16 @@ public class UIController : MonoBehaviour
     public void BackToMenu()
     {
         Time.timeScale = 1;
-        GameController.instance.GameOver();
+        GameController.instance.ReloadScene();
+    }
+
+    public void GameOver()
+    {
+        gameUI.SetActive(false);
+        endUI.SetActive(true);
+
+        endScoreText.text = GameController.instance.Score.ToString();
+        highScoreText.text = GameController.instance.HighScore.ToString();
     }
 
     private void Update() {

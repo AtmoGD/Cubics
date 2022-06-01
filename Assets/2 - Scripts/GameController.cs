@@ -19,6 +19,16 @@ public class GameController : MonoBehaviour
     [SerializeField] public int maxEnemys = 100;
     public static GameController instance;
     public int Score { get; private set; }
+
+    public int HighScore {
+        get {
+            return PlayerPrefs.GetInt("HighScore", 0);
+        }
+        set {
+            PlayerPrefs.SetInt("HighScore", value);
+        }
+    }
+
     public CubeController Player { get; private set; }
     private CinemachineBasicMultiChannelPerlin noise;
 
@@ -59,8 +69,15 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void GameOver() {
+    public void ReloadScene() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void GameOver() {
+        if(Score > HighScore)
+            HighScore = Score;
+            
+        UIController.instance.GameOver();
     }
 
     public void AddScore(int amount, bool addMana = false, float multiAmplitude = 1f, float multiFrequency = 1f, float duration = 0.1f) {
