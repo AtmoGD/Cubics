@@ -9,6 +9,7 @@ public class UIController : MonoBehaviour
 {
     [SerializeField] private GameObject startUI;
     [SerializeField] private GameObject gameUI;
+    [SerializeField] private GameObject pauseUI;
     [SerializeField] private TMP_Text scoreText;
     [SerializeField] private TMP_Text waveText;
     [SerializeField] private TMP_Text enemyCountText;
@@ -21,6 +22,10 @@ public class UIController : MonoBehaviour
 
     public void Start()
     {
+        startUI.SetActive(true);
+        gameUI.SetActive(false);
+        pauseUI.SetActive(false);
+        
         GameController.instance.OnScoreChanged += OnScoreChanged;
         SpawnController.instance.OnWaveChanged += OnWaveChanged;
 
@@ -33,6 +38,24 @@ public class UIController : MonoBehaviour
         startUI.SetActive(false);
         gameUI.SetActive(true);
         SpawnController.instance.GenerateRoom();
+    }
+
+    public void PauseGame()
+    {
+        Time.timeScale = 0;
+        pauseUI.SetActive(true);
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1;
+        pauseUI.SetActive(false);
+    }
+
+    public void BackToMenu()
+    {
+        Time.timeScale = 1;
+        GameController.instance.GameOver();
     }
 
     private void Update() {
