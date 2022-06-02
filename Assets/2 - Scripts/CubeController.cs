@@ -127,7 +127,7 @@ public class CubeController : MonoBehaviour, Damagable
         // transform.rotation = Quaternion.LookRotation(TargetLookAt);
 
         actualShootCooldown -= Time.fixedDeltaTime;
-        
+
         if (IsShooting)
         {
             if (actualShootCooldown <= 0)
@@ -194,15 +194,19 @@ public class CubeController : MonoBehaviour, Damagable
     }
     public void RotateToMouse(InputAction.CallbackContext context)
     {
-        Vector2 mousePos = context.ReadValue<Vector2>();
-        Vector3 lookAt = Camera.main.ScreenPointToRay(mousePos).GetPoint(Camera.main.transform.position.z);
-        lookAt.z = 0f;
-        // Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, Camera.main.nearClipPlane));
-        // worldPos.z = 0;
+        if (Camera.main)
+        {
+            Vector2 mousePos = context.ReadValue<Vector2>();
 
-        // Vector3 direction = (lookAt - transform.position).normalized;
-        Vector3 direction = transform.position - lookAt;
-        RotateDirection = direction;
+            Vector3 lookAt = Camera.main.ScreenPointToRay(mousePos).GetPoint(Camera.main.transform.position.z);
+            lookAt.z = 0f;
+            // Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, Camera.main.nearClipPlane));
+            // worldPos.z = 0;
+
+            // Vector3 direction = (lookAt - transform.position).normalized;
+            Vector3 direction = transform.position - lookAt;
+            RotateDirection = direction;
+        }
     }
 
     public void RoateToDirection(InputAction.CallbackContext context)

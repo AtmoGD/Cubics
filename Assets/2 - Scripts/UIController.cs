@@ -32,6 +32,8 @@ public class UIController : MonoBehaviour
 
     public void Start()
     {
+        Time.timeScale = 1f;
+
         startUI.SetActive(true);
         gameUI.SetActive(false);
         pauseUI.SetActive(false);
@@ -72,8 +74,11 @@ public class UIController : MonoBehaviour
     public void GameOver()
     {
         Time.timeScale = 0;
-        
-        gameUI.SetActive(false);
+
+        // gameUI.SetActive(false);
+        if(GameController.instance.Score > GameController.instance.HighScore)
+            GameController.instance.HighScore = GameController.instance.Score;
+            
         endUI.SetActive(true);
 
         endScoreText.text = GameController.instance.Score.ToString();
