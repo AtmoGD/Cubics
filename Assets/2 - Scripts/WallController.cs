@@ -29,36 +29,56 @@ public class WallController : MonoBehaviour, Damagable
         rb.angularVelocity = Random.insideUnitSphere * Random.Range(rotationSpeedMin, rotationSpeedMax);
     }
 
-    private void FixedUpdate() {
-        if(isDead) return;
+    private void FixedUpdate()
+    {
+        if (isDead) return;
 
         Vector3 movement = (controller.transform.position - transform.position) * speed * Time.fixedDeltaTime;
         rb.velocity = movement;
     }
 
-    public void SetDieDelay(float delay) {
+    public void SetDieDelay(float delay)
+    {
         dieDelay = delay;
     }
 
-    public void Die(Vector2 knockback, float delay = 0f, bool addMana = true) {
+    public void Die(Vector2 knockback, float delay = 0f, bool addMana = true, bool addScore = true, bool removeFromList = true)
+    {
         if (isDead) return;
-        
+
         isDead = true;
 
-        if(knockback != Vector2.zero) {
+        if (knockback != Vector2.zero)
+        {
             rb.AddForce(knockback, ForceMode.Impulse);
         }
 
         if (diePrefab) Instantiate(diePrefab, transform.position, Quaternion.identity);
-        
-        GameController.instance.AddScore(pointsWorth, addMana, 1f, 1f, 0.05f);
+
+        // if(addScore)
+        GameController.instance.AddScore(addScore ? pointsWorth : 0, addMana, 1f, 1f, 0.05f);
 
         animator.SetTrigger("Die");
 
-        Destroy(gameObject, dieDelay);
-        
-        SpawnController.instance.WallDie();
+        Destroy(gameObject, delay != 0f ? delay : dieDelay);
+
+        if (removeFromList)
+            SpawnController.instance.WallDie(this);
     }
+
+    // public void Die(float delay) {
+    //     if (isDead) return;
+
+    //     isDead = true;
+
+    //     if (diePrefab) Instantiate(diePrefab, transform.position, Quaternion.identity);
+
+    //     animator.SetTrigger("Die");
+
+    //     Destroy(gameObject, dieDelay);
+
+    //     SpawnController.instance.WallDie(this);
+    // }
 
     public void TakeDamage(float damage)
     {

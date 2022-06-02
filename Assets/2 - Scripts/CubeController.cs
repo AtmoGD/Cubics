@@ -143,14 +143,19 @@ public class CubeController : MonoBehaviour, Damagable
 
     }
 
-    public void Die(Vector2 knockback, float delay, bool addMana)
+    public void Die(Vector2 knockback, float delay, bool addMana, bool addScore, bool removeFromList)
     {
         Destroy(gameObject);
     }
 
     public void Shoot()
     {
-        Vector3 lookAt = transform.position + RotateDirection.normalized * laserOffset;
+        Vector3 lookAt = Vector3.zero;
+
+        if(RotateDirection.magnitude > 0.1)
+            lookAt = transform.position + RotateDirection.normalized * laserOffset;
+        else
+            lookAt = transform.position + (Vector3)FlyDirection.normalized * laserOffset;
 
 
         LaserController laser = Instantiate(laserPrefab, lookAt, Quaternion.identity).GetComponent<LaserController>();
@@ -243,7 +248,7 @@ public class CubeController : MonoBehaviour, Damagable
                 Damagable damagable = collision.gameObject.GetComponent<Damagable>();
 
                 if (damagable != null)
-                    damagable.Die(Vector2.zero, wallDieDelayDuringDash, true);
+                    damagable.Die(Vector2.zero, wallDieDelayDuringDash, true, true, true);
             }
         }
     }

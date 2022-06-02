@@ -58,6 +58,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "RotateToDirection",
+                    "type": "Value",
+                    "id": "a99dc41f-2c4b-48d5-88d2-117ba878e9bc",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -140,8 +149,8 @@
                 },
                 {
                     "name": "",
-                    "id": "f5a9cef7-0742-4808-8f7d-8a963f123407",
-                    "path": "<Gamepad>/buttonSouth",
+                    "id": "7c974514-cce9-4f93-bca4-f18125a3c329",
+                    "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -163,7 +172,7 @@
                 {
                     "name": "",
                     "id": "68a43f59-b223-4087-ad29-f84a7b4e849e",
-                    "path": "<Gamepad>/buttonWest",
+                    "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -174,7 +183,7 @@
                 {
                     "name": "",
                     "id": "74dc6d1c-9829-4401-8316-51a7c11d9cbc",
-                    "path": "<Gamepad>/leftTrigger",
+                    "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -212,6 +221,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "RotateToMouse",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f0151349-ef54-4a25-a843-f925b7c310d2",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RotateToDirection",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

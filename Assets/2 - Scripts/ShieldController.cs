@@ -51,7 +51,7 @@ public class ShieldController : MonoBehaviour
         {
             Damagable damagable = other.gameObject.GetComponent<Damagable>();
             if (damagable != null)
-                damagable.Die((other.transform.position - cube.transform.position) * knockback, 0f, false);
+                damagable.Die((other.transform.position - cube.transform.position) * knockback, 0f, false, true, true);
         }
     }
 
@@ -61,7 +61,7 @@ public class ShieldController : MonoBehaviour
         {
             Damagable damagable = collision.gameObject.GetComponent<Damagable>();
             if (damagable != null)
-                damagable.Die(Vector2.zero, 0f, false);
+                damagable.Die(Vector2.zero, 0f, false, true, true);
         }
     }
 }

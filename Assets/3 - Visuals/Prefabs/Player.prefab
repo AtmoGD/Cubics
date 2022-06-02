@@ -5242,6 +5242,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 6faa3367-1fad-480a-9ac3-c2a28f046df1
     m_ActionName: Game/RotateToMouse[/Mouse/position]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6080552774717326077}
+        m_TargetAssemblyTypeName: CubeController, Assembly-CSharp
+        m_MethodName: RoateToDirection
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: a99dc41f-2c4b-48d5-88d2-117ba878e9bc
+    m_ActionName: Game/RotateToDirection[/XInputControllerWindows/rightStick]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Game

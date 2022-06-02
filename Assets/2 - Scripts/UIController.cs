@@ -73,13 +73,14 @@ public class UIController : MonoBehaviour
 
     public void GameOver()
     {
-        Time.timeScale = 0;
+        // Time.timeScale = 0;
 
         // gameUI.SetActive(false);
         if(GameController.instance.Score > GameController.instance.HighScore)
             GameController.instance.HighScore = GameController.instance.Score;
             
         endUI.SetActive(true);
+        gameUI.SetActive(false);
 
         endScoreText.text = GameController.instance.Score.ToString();
         highScoreText.text = GameController.instance.HighScore.ToString();

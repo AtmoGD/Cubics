@@ -57,6 +57,7 @@ public class GameController : MonoBehaviour
             return;
         }
 
+
         if (cameraShakeLeft > 0f) {
             cameraShakeLeft -= Time.deltaTime;
             noise.m_AmplitudeGain = cameraAmplitude;
@@ -75,12 +76,21 @@ public class GameController : MonoBehaviour
 
     public void GameOver() {
         UIController.instance.GameOver();
+
+        StartCoroutine(SpawnController.instance.RemoveAll());
     }
 
     public void AddScore(int amount, bool addMana = false, float multiAmplitude = 1f, float multiFrequency = 1f, float duration = 0.1f) {
         Score += amount;
         OnScoreChanged?.Invoke(Score);
         Player.AddMana(addMana ? amount : 0); 
+
+        CameraShake(amount, multiAmplitude, multiFrequency, duration);
+    }
+
+    public void CameraShake(int amount, float multiAmplitude = 1f, float multiFrequency = 1f, float duration = 0.1f) {
+        if(amount == 0) amount = 10;
+
         cameraAmplitude += gain * multiAmplitude * amount;
         cameraAmplitude = Mathf.Clamp(cameraAmplitude, amplitudeMin, amplitudeMax);
         cameraFrequency += gain * multiFrequency * amount;
@@ -89,11 +99,11 @@ public class GameController : MonoBehaviour
         cameraShakeLeft = Mathf.Clamp(cameraShakeLeft, durationMin, durationMax);
     }
 
-    public IEnumerator CameraShake(float multiplierAmplitude, float multiplierFrequency,  float duration, float multiplier = 1f) {
-        noise.m_AmplitudeGain = multiplierAmplitude * gain * multiplier;
-        noise.m_FrequencyGain = multiplierFrequency * gain * multiplier;
-        yield return new WaitForSeconds(duration * gain);
-        noise.m_AmplitudeGain = 0;
-        noise.m_FrequencyGain = 0;
-    }
+    // public IEnumerator CameraShake(float multiplierAmplitude, float multiplierFrequency,  float duration, float multiplier = 1f) {
+    //     noise.m_AmplitudeGain = multiplierAmplitude * gain * multiplier;
+    //     noise.m_FrequencyGain = multiplierFrequency * gain * multiplier;
+    //     yield return new WaitForSeconds(duration * gain);
+    //     noise.m_AmplitudeGain = 0;
+    //     noise.m_FrequencyGain = 0;
+    // }
 }
