@@ -3,17 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using HighscorePlugin;
 
 public class UIController : MonoBehaviour
 {
     public static UIController instance;
+    [SerializeField] private Highscores highscores;
     [SerializeField] private GameObject startUI;
     [SerializeField] private GameObject gameUI;
     [SerializeField] private GameObject pauseUI;
     [SerializeField] private GameObject endUI;
     [SerializeField] private TMP_Text scoreText;
     [SerializeField] private TMP_Text endScoreText;
-    [SerializeField] private TMP_Text highScoreText;
+    [SerializeField] private List<TMP_Text> highscoreNames;
+    [SerializeField] private List<TMP_Text> highscoreScores;
+    [SerializeField] private TMP_Text playerName;
+    [SerializeField] private GameObject submitScoreField;
     [SerializeField] private TMP_Text waveText;
     [SerializeField] private TMP_Text enemyCountText;
     [SerializeField] private Image dashCooldownImage;
@@ -76,14 +81,18 @@ public class UIController : MonoBehaviour
         // Time.timeScale = 0;
 
         // gameUI.SetActive(false);
-        if(GameController.instance.Score > GameController.instance.HighScore)
-            GameController.instance.HighScore = GameController.instance.Score;
+
+        highscores.GetHighscores(3);
+        highscores.OnHighscoresReceived += UpdateHighscores;
+
+        // if(GameController.instance.Score > GameController.instance.HighScore)
+        //     GameController.instance.HighScore = GameController.instance.Score;
             
         endUI.SetActive(true);
         gameUI.SetActive(false);
 
         endScoreText.text = GameController.instance.Score.ToString();
-        highScoreText.text = GameController.instance.HighScore.ToString();
+        // highScoreText.text = GameController.instance.HighScore.ToString();
     }
 
     private void Update() {
@@ -103,6 +112,20 @@ public class UIController : MonoBehaviour
             else
                 manaImages[i].gameObject.SetActive(false);
         }
+    }
+
+    public void UpdateHighscores(List<SingleNameScore> scores) {
+        foreach(SingleNameScore score in scores) {
+            highscoreNames[scores.IndexOf(score)].text = score.name;
+            highscoreScores[scores.IndexOf(score)].text = score.score.ToString();
+        }
+    }
+
+    public void SubmitScore() {
+        highscores.CreateHighscore(playerName.text, GameController.instance.Score);
+        highscores.GetHighscores(3);
+
+        submitScoreField.SetActive(false);
     }
 
     public void OnScoreChanged(int score)

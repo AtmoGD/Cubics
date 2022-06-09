@@ -49,13 +49,10 @@ public class WallController : MonoBehaviour, Damagable
         isDead = true;
 
         if (knockback != Vector2.zero)
-        {
             rb.AddForce(knockback, ForceMode.Impulse);
-        }
 
         if (diePrefab) Instantiate(diePrefab, transform.position, Quaternion.identity);
 
-        // if(addScore)
         GameController.instance.AddScore(addScore ? pointsWorth : 0, addMana, 1f, 1f, 0.05f);
 
         animator.SetTrigger("Die");
@@ -65,20 +62,6 @@ public class WallController : MonoBehaviour, Damagable
         if (removeFromList)
             SpawnController.instance.WallDie(this);
     }
-
-    // public void Die(float delay) {
-    //     if (isDead) return;
-
-    //     isDead = true;
-
-    //     if (diePrefab) Instantiate(diePrefab, transform.position, Quaternion.identity);
-
-    //     animator.SetTrigger("Die");
-
-    //     Destroy(gameObject, dieDelay);
-
-    //     SpawnController.instance.WallDie(this);
-    // }
 
     public void TakeDamage(float damage)
     {

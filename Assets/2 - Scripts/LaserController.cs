@@ -12,36 +12,35 @@ public class LaserController : MonoBehaviour
     [SerializeField] private float timeLeft = 0f;
     public GameObject Sender { get; set; }
 
-    private void Start() {
+    private void Start()
+    {
         Sender = null;
-
-        // timeLeft = maxLifetime;
-
-        // rb.velocity = transform.forward * -speed;
     }
 
-    public void StartFlying() {
+    public void StartFlying()
+    {
         timeLeft = maxLifetime;
 
         rb.velocity = transform.forward * -speed;
     }
 
-    private void FixedUpdate() {
-
-        // rb.velocity = transform.forward * -speed;
-
+    private void FixedUpdate()
+    {
         timeLeft -= Time.fixedDeltaTime;
-        if (timeLeft <= 0) 
+        
+        if (timeLeft <= 0)
             Destroy(gameObject);
     }
 
-    private void OnCollisionEnter(Collision other) {
+    private void OnCollisionEnter(Collision other)
+    {
         if (other.gameObject == Sender)
             return;
 
         Damagable damagable = other.gameObject.GetComponent<Damagable>();
 
-        if (damagable != null) {
+        if (damagable != null)
+        {
             damagable?.TakeDamage(damage);
             if (diePrefab)
                 Instantiate(diePrefab, transform.position, Quaternion.identity);

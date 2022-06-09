@@ -47,6 +47,9 @@ public class ShieldController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if(GameController.instance.IsGameOver)
+            return;
+            
         if (other.gameObject.tag == "Enemy")
         {
             Damagable damagable = other.gameObject.GetComponent<Damagable>();
@@ -57,6 +60,9 @@ public class ShieldController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if(GameController.instance.IsGameOver)
+            return;
+
         if (collision.gameObject.tag == "Enemy")
         {
             Damagable damagable = collision.gameObject.GetComponent<Damagable>();

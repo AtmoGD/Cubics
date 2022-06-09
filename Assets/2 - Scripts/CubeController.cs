@@ -94,37 +94,15 @@ public class CubeController : MonoBehaviour, Damagable
             Vector3 newVelocity = Vector3.Lerp(rb.velocity, rb.velocity + movement, Time.fixedDeltaTime);
 
             rb.velocity = Vector3.ClampMagnitude(newVelocity, _maxSpeed);
-
-
-
-
-
-            // if (RotateDirection.magnitude > 0.1)
-            // {
-            //     TargetLookAt = Vector3.Lerp(TargetLookAt, RotateDirection.normalized, rotationSpeed);
-            //     TargetLookAt *= 0.999f;
-            // } else
-            // {
-            //     TargetLookAt = Vector3.Lerp(TargetLookAt, Vector3.zero, rotationSpeed);
-            //     TargetLookAt *= 0.999f;
-            // }
         }
-
-        // TargetLookAt = Vector3.Lerp(transform.forward, FlyDirection.normalized, rotationSpeed);
 
         if (RotateDirection.magnitude > 0.3)
             TargetLookAt = Vector3.Lerp(TargetLookAt.normalized, RotateDirection.normalized, rotationSpeed);
         else
             TargetLookAt = Vector3.Lerp(TargetLookAt.normalized, FlyDirection, rotationSpeed);
 
-        // Quaternion targetRotation = Quaternion.LookRotation(targetLookAt);
-        // if (targetRotation != Quaternion.identity)
-        //     rb.rotation = Quaternion.Lerp(rb.rotation, targetRotation, rotationSpeed);
-
         if (TargetLookAt != Vector3.zero)
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(TargetLookAt), rotationSpeed);
-        // transform.rotation = Quaternion.LookRotation(targetLookAt);
-        // transform.rotation = Quaternion.LookRotation(TargetLookAt);
 
         actualShootCooldown -= Time.fixedDeltaTime;
 
@@ -152,18 +130,17 @@ public class CubeController : MonoBehaviour, Damagable
     {
         Vector3 lookAt = Vector3.zero;
 
-        if(RotateDirection.magnitude > 0.1)
+        if (RotateDirection.magnitude > 0.1)
             lookAt = transform.position + RotateDirection.normalized * laserOffset;
         else
             lookAt = transform.position + (Vector3)FlyDirection.normalized * laserOffset;
 
-
         LaserController laser = Instantiate(laserPrefab, lookAt, Quaternion.identity).GetComponent<LaserController>();
+
         laser.Sender = gameObject;
-        // Vector3 lookAt = laser.transform.position + TargetLookAt.normalized;
+
         laser.transform.LookAt(transform.position + (lookAt - transform.position).normalized);
 
-        // laser.transform.LookAt(-(laser.transform.position + TargetLookAt));
         laser.StartFlying();
     }
 
@@ -187,15 +164,10 @@ public class CubeController : MonoBehaviour, Damagable
     public void ShootInput(InputAction.CallbackContext context)
     {
         if (context.performed)
-        {
             IsShooting = true;
-            // Vector3 dir = 
-
-        }
+        
         else if (context.canceled)
-        {
             IsShooting = false;
-        }
     }
     public void RotateToMouse(InputAction.CallbackContext context)
     {
@@ -205,10 +177,7 @@ public class CubeController : MonoBehaviour, Damagable
 
             Vector3 lookAt = Camera.main.ScreenPointToRay(mousePos).GetPoint(Camera.main.transform.position.z);
             lookAt.z = 0f;
-            // Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, Camera.main.nearClipPlane));
-            // worldPos.z = 0;
 
-            // Vector3 direction = (lookAt - transform.position).normalized;
             Vector3 direction = transform.position - lookAt;
             RotateDirection = direction;
         }
@@ -241,6 +210,9 @@ public class CubeController : MonoBehaviour, Damagable
 
     public void OnCollisionEnter(Collision collision)
     {
+        if (GameController.instance.IsGameOver)
+            return;
+
         if (collision.gameObject.CompareTag("Enemy"))
         {
             if (dashTimeLeft > 0f)

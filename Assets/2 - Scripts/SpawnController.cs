@@ -40,6 +40,9 @@ public class SpawnController : MonoBehaviour
 
     public void GenerateRoom()
     {
+        if(GameController.instance.IsGameOver)
+            return;
+
         int wallCount = UnityEngine.Random.Range(objectsCountMin, objectsCountMax);
         for (int i = 0; i < wallCount; i++)
         {
@@ -74,18 +77,6 @@ public class SpawnController : MonoBehaviour
             walls.Clear();
         }
     }
-
-    // public void RemoveAllWalls()
-    // {
-    //     foreach (WallController wall in walls)
-    //     {
-    //         float randomDelay = UnityEngine.Random.Range(dieAllDelayMin, dieAllDelayMax);
-    //         wall.Die(Vector2.zero, randomDelay, false, false, false);
-    //     }
-
-    //     walls.Clear();
-    //     WallCount = 0;
-    // }
 
     public void WallDie(WallController wall, int amount = 1)
     {
