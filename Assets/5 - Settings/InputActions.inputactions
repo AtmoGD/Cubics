@@ -236,6 +236,54 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "UI",
+            "id": "0de6c4b4-2915-45c1-b9a9-a2482345f333",
+            "actions": [
+                {
+                    "name": "CursorMove",
+                    "type": "PassThrough",
+                    "id": "aa5b02d9-437b-4464-9af9-7470b0683f6b",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "CursorEnter",
+                    "type": "Button",
+                    "id": "62506fdc-ac02-4e66-b8df-2ef8dbadc0d0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "e4d727c7-21c5-4ea2-94eb-9b6418597fc3",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CursorMove",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "015f9df0-b042-4d5b-8b30-d4e482f0d58c",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CursorEnter",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []
