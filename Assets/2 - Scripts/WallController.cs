@@ -60,7 +60,7 @@ public class WallController : MonoBehaviour, Damagable
         Destroy(gameObject, delay != 0f ? delay : dieDelay);
 
         if (removeFromList)
-            SpawnController.instance.WallDie(this);
+            SpawnController.instance.EnemyDie(this);
     }
 
     public void TakeDamage(float damage)

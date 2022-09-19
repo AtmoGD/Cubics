@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5369317458113185455}
-  - component: {fileID: 3314978370318707696}
   - component: {fileID: 7689554851507879589}
   - component: {fileID: 1140306786403634337}
+  - component: {fileID: 604244906626945360}
   m_Layer: 0
   m_Name: Laser
   m_TagString: Untagged
@@ -28,30 +28,12 @@ Transform:
   m_GameObject: {fileID: 5369317458113185452}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_Children:
   - {fileID: 5369317458881130468}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3314978370318707696
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5369317458113185452}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd20bca3bec41fe4fb2a59025244b9ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rb: {fileID: 7689554851507879589}
-  diePrefab: {fileID: 0}
-  speed: 20
-  maxLifetime: 3
-  damage: 5
-  timeLeft: 0
 --- !u!54 &7689554851507879589
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -79,8 +61,26 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.1
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &604244906626945360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5369317458113185452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e8ac2fa028da2f4a8812a03db3344fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 7689554851507879589}
+  diePrefab: {fileID: 0}
+  speed: 50
+  maxLifetime: 10
+  damage: 1
+  timeLeft: 0
 --- !u!1 &5369317458881130469
 GameObject:
   m_ObjectHideFlags: 0
@@ -108,7 +108,7 @@ Transform:
   m_GameObject: {fileID: 5369317458881130469}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5369317458113185455}
   m_RootOrder: 0
@@ -140,7 +140,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0fd641818e51bd44ab430087671290ad, type: 2}
+  - {fileID: 2100000, guid: dc2628b2d9db9b54f850a6a3b909c5eb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

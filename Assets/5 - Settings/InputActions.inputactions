@@ -183,7 +183,7 @@
                 {
                     "name": "",
                     "id": "74dc6d1c-9829-4401-8316-51a7c11d9cbc",
-                    "path": "<Gamepad>/buttonWest",
+                    "path": "<Gamepad>/leftShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -194,7 +194,7 @@
                 {
                     "name": "",
                     "id": "cfc99414-817c-43ae-bac1-ef6e54807c9f",
-                    "path": "<Keyboard>/f",
+                    "path": "<Keyboard>/ctrl",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

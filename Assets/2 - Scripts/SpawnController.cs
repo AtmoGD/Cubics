@@ -18,9 +18,9 @@ public class SpawnController : MonoBehaviour
     [SerializeField] private float waveTimeMin;
     [SerializeField] private float waveTimeSpeedIncrease;
     [SerializeField] private Transform spawnPoint;
-    [SerializeField] private List<WallController> walls = new List<WallController>();
+    [SerializeField] private List<WallController> enemys = new List<WallController>();
 
-    public int WallCount { get; private set; }
+    public int EnemyCount { get; private set; }
     public int WaveCount { get; private set; }
 
     private void Awake()
@@ -35,12 +35,12 @@ public class SpawnController : MonoBehaviour
     {
         WaveCount = 0;
         if (autoStart)
-            GenerateRoom();
+            SpawnEnemys();
     }
 
-    public void GenerateRoom()
+    public void SpawnEnemys()
     {
-        if(GameController.instance.IsGameOver)
+        if (GameController.instance.IsGameOver)
             return;
 
         int wallCount = UnityEngine.Random.Range(objectsCountMin, objectsCountMax);
@@ -49,10 +49,10 @@ public class SpawnController : MonoBehaviour
             Vector3 pos = new Vector3(UnityEngine.Random.Range(-spawnSize, spawnSize), UnityEngine.Random.Range(-spawnSize, spawnSize), 0);
             GameObject cube = prefabs[UnityEngine.Random.Range(0, prefabs.Count)];
             WallController newWall = Instantiate(cube, spawnPoint.position + pos, Quaternion.identity, transform).GetComponent<WallController>();
-            walls.Add(newWall);
+            enemys.Add(newWall);
         }
 
-        WallCount += wallCount;
+        EnemyCount += wallCount;
         waveTime = waveTime < waveTimeMin ? waveTimeMin : waveTime - waveTimeSpeedIncrease;
         WaveCount++;
         OnWaveChanged?.Invoke(WaveCount);
@@ -63,30 +63,36 @@ public class SpawnController : MonoBehaviour
 
     public IEnumerator RemoveAll()
     {
-        WallCount = 0;
-        try
+        foreach (WallController wall in enemys)
         {
-            foreach (WallController wall in walls)
-            {
-                yield return new WaitForSeconds(UnityEngine.Random.Range(dieAllDelayMin, dieAllDelayMax));
-                wall.Die(Vector2.zero, 0, false, false, false);
-            }
+            // yield return new WaitForSeconds(UnityEngine.Random.Range(dieAllDelayMin, dieAllDelayMax));
+            wall.Die(Vector2.zero, UnityEngine.Random.Range(dieAllDelayMin, dieAllDelayMax), false, false, false);
         }
-        finally
-        {
-            walls.Clear();
-        }
+        yield return new WaitForSeconds(UnityEngine.Random.Range(dieAllDelayMin, dieAllDelayMax));
+        // EnemyCount = 0;
+        // try
+        // {
+        //     foreach (WallController wall in enemys)
+        //     {
+        //         yield return new WaitForSeconds(UnityEngine.Random.Range(dieAllDelayMin, dieAllDelayMax));
+        //         wall.Die(Vector2.zero, 0, false, false, false);
+        //     }
+        // }
+        // finally
+        // {
+        //     enemys.Clear();
+        // }
     }
 
-    public void WallDie(WallController wall, int amount = 1)
+    public void EnemyDie(WallController wall, int amount = 1)
     {
-        WallCount -= amount;
-        walls.Remove(wall);
+        EnemyCount -= amount;
+        enemys.Remove(wall);
     }
 
     IEnumerator Spawn()
     {
         yield return new WaitForSeconds(waveTime);
-        GenerateRoom();
+        SpawnEnemys();
     }
 }

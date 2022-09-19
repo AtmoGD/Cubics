@@ -31,7 +31,7 @@ public class CubeController : MonoBehaviour, Damagable
     [SerializeField] private float maxMana = 100f;
     [SerializeField] private float manaSectionSize = 40f;
     [SerializeField] private ShieldController shield;
-    public float ManaSections { get { return Mana / manaSectionSize; } }
+    public float ManaSections { get { return Mathf.Floor(Mana / manaSectionSize); } }
     public Vector2 FlyDirection { get; private set; }
     public Vector3 RotateDirection { get; private set; }
     public Vector3 TargetLookAt { get; private set; }
@@ -62,6 +62,8 @@ public class CubeController : MonoBehaviour, Damagable
 
         dashParticlesEmission = dashParticles.emission;
         dashEmissionRate = dashParticlesEmission.rateOverTime.constant;
+
+        dashParticlesEmission.rateOverTime = 0f;
     }
 
     private void Update()
@@ -72,6 +74,7 @@ public class CubeController : MonoBehaviour, Damagable
 
     private void FixedUpdate()
     {
+        // print("Mana: " + Mana);
         if (FlyDirection.magnitude > 0.3)
         {
             float _maxSpeed = maxSpeed;
@@ -79,6 +82,7 @@ public class CubeController : MonoBehaviour, Damagable
 
             if (dashTimeLeft > 0)
             {
+                // print("Dashing");
                 _maxSpeed = dashMaxSpeed;
                 _speed = dashSpeed;
 
@@ -93,7 +97,11 @@ public class CubeController : MonoBehaviour, Damagable
 
             Vector3 newVelocity = Vector3.Lerp(rb.velocity, rb.velocity + movement, Time.fixedDeltaTime);
 
+            // rb.velocity = newVelocity;
+
             rb.velocity = Vector3.ClampMagnitude(newVelocity, _maxSpeed);
+
+            // print(rb.velocity.magnitude);
         }
 
         if (RotateDirection.magnitude > 0.3)
@@ -165,7 +173,7 @@ public class CubeController : MonoBehaviour, Damagable
     {
         if (context.performed)
             IsShooting = true;
-        
+
         else if (context.canceled)
             IsShooting = false;
     }

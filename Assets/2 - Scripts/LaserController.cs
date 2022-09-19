@@ -27,7 +27,7 @@ public class LaserController : MonoBehaviour
     private void FixedUpdate()
     {
         timeLeft -= Time.fixedDeltaTime;
-        
+
         if (timeLeft <= 0)
             Destroy(gameObject);
     }

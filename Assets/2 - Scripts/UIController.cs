@@ -25,10 +25,11 @@ public class UIController : MonoBehaviour
     [SerializeField] private Image shieldCooldownImage;
     [SerializeField] private Slider worldEnemyCountSlider;
     [SerializeField] private List<Image> manaImages = new List<Image>();
-    [SerializeField] private float shieldActiveTime = 0f;
+    // [SerializeField] private float shieldActiveTime = 0f;
     [SerializeField] private float worldMaxEnemyLerpSpeed = 1f;
 
-    private void Awake() {
+    private void Awake()
+    {
         if (!instance)
             instance = this;
         else
@@ -55,7 +56,7 @@ public class UIController : MonoBehaviour
     {
         startUI.SetActive(false);
         gameUI.SetActive(true);
-        SpawnController.instance.GenerateRoom();
+        SpawnController.instance.SpawnEnemys();
     }
 
     public void PauseGame()
@@ -87,7 +88,7 @@ public class UIController : MonoBehaviour
 
         // if(GameController.instance.Score > GameController.instance.HighScore)
         //     GameController.instance.HighScore = GameController.instance.Score;
-            
+
         endUI.SetActive(true);
         gameUI.SetActive(false);
 
@@ -95,33 +96,38 @@ public class UIController : MonoBehaviour
         // highScoreText.text = GameController.instance.HighScore.ToString();
     }
 
-    private void Update() {
-        float newSliderValue = (float)SpawnController.instance.WallCount / (float)GameController.instance.maxEnemys;
+    private void Update()
+    {
+        float newSliderValue = (float)SpawnController.instance.EnemyCount / (float)GameController.instance.maxEnemys;
         worldEnemyCountSlider.value = Mathf.Lerp(worldEnemyCountSlider.value, newSliderValue, Time.deltaTime * worldMaxEnemyLerpSpeed);
 
-        shieldActiveTime -= Time.deltaTime;
+        // shieldActiveTime -= Time.deltaTime;
 
         dashCooldownImage.fillAmount = CubeController.instance.DashCooldown / CubeController.instance.DashDuration;
         shieldCooldownImage.fillAmount = CubeController.instance.ShieldTimeLeft > 0f ? CubeController.instance.ShieldTimeLeft / CubeController.instance.ShieldDuration : 0f;
 
-        enemyCountText.text = SpawnController.instance.WallCount.ToString() + " / " + GameController.instance.maxEnemys.ToString();
+        enemyCountText.text = SpawnController.instance.EnemyCount.ToString() + " / " + GameController.instance.maxEnemys.ToString();
 
-        for(int i = 0; i < manaImages.Count; i++) {
-            if(i < CubeController.instance.ManaSections)
+        for (int i = 0; i < manaImages.Count; i++)
+        {
+            if (i < CubeController.instance.ManaSections)
                 manaImages[i].gameObject.SetActive(true);
             else
                 manaImages[i].gameObject.SetActive(false);
         }
     }
 
-    public void UpdateHighscores(List<SingleNameScore> scores) {
-        foreach(SingleNameScore score in scores) {
+    public void UpdateHighscores(List<SingleNameScore> scores)
+    {
+        foreach (SingleNameScore score in scores)
+        {
             highscoreNames[scores.IndexOf(score)].text = score.name;
             highscoreScores[scores.IndexOf(score)].text = score.score.ToString();
         }
     }
 
-    public void SubmitScore() {
+    public void SubmitScore()
+    {
         highscores.CreateHighscore(playerName.text, GameController.instance.Score);
         highscores.GetHighscores(3);
 

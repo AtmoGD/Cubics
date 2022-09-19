@@ -5,7 +5,7 @@ using UnityEngine;
 public class ShieldController : MonoBehaviour
 {
     [SerializeField] private Animator animator;
-    [SerializeField] private float lifetime = 1f;
+    // [SerializeField] private float lifetime = 1f;
     [SerializeField] private float knockback = 0f;
     private float timeSinceStarted = 0f;
     private Vector3 rotationDirection = Vector3.zero;
@@ -22,6 +22,7 @@ public class ShieldController : MonoBehaviour
     public void Init(CubeController _cube)
     {
         cube = _cube;
+        // lifetime = cube.ShieldDuration;
     }
 
     void Start()
@@ -35,7 +36,7 @@ public class ShieldController : MonoBehaviour
         transform.Rotate(rotationDirection * rotationSpeed * Time.deltaTime);
 
         timeSinceStarted += Time.deltaTime;
-        if (timeSinceStarted >= lifetime)
+        if (timeSinceStarted >= cube.ShieldDuration)
             Die();
     }
 
@@ -47,9 +48,9 @@ public class ShieldController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(GameController.instance.IsGameOver)
+        if (GameController.instance.IsGameOver)
             return;
-            
+
         if (other.gameObject.tag == "Enemy")
         {
             Damagable damagable = other.gameObject.GetComponent<Damagable>();
@@ -60,7 +61,7 @@ public class ShieldController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(GameController.instance.IsGameOver)
+        if (GameController.instance.IsGameOver)
             return;
 
         if (collision.gameObject.tag == "Enemy")

@@ -20,7 +20,7 @@ public class GameController : MonoBehaviour
     [SerializeField] public int maxEnemys = 100;
     public static GameController instance;
     public int Score { get; private set; }
-    
+
     public CubeController Player { get; private set; }
     private CinemachineBasicMultiChannelPerlin noise;
 
@@ -50,7 +50,7 @@ public class GameController : MonoBehaviour
     private void Update()
     {
 
-        if (SpawnController.instance.WallCount > maxEnemys)
+        if (SpawnController.instance.EnemyCount > maxEnemys)
         {
             GameOver();
             return;
@@ -98,11 +98,14 @@ public class GameController : MonoBehaviour
     {
         if (amount == 0) amount = 10;
 
-        cameraAmplitude += gain * multiAmplitude * amount;
+        // cameraAmplitude += gain * multiAmplitude * amount;
+        cameraAmplitude = gain * multiAmplitude * (amount > 0 ? amount : 1);
         cameraAmplitude = Mathf.Clamp(cameraAmplitude, amplitudeMin, amplitudeMax);
-        cameraFrequency += gain * multiFrequency * amount;
+        // cameraFrequency += gain * multiFrequency * amount;
+        cameraFrequency = gain * multiFrequency * amount;
         cameraFrequency = Mathf.Clamp(cameraFrequency, frequencyMin, frequencyMax);
-        cameraShakeLeft += duration * amount;
+        // cameraShakeLeft += duration * amount;
+        cameraShakeLeft = duration * amount;
         cameraShakeLeft = Mathf.Clamp(cameraShakeLeft, durationMin, durationMax);
     }
 }

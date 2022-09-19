@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 2249968830287836149}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -45,15 +45,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 2249968830287836149}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e531f2a7e5a3bd4c876d246279f37a7, type: 3}
+  m_Script: {fileID: 11500000, guid: e2e71a6ff60efd341a82d74099b8b12a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointsWorth: 13
+  pointsWorth: 1
   speed: 1
   rotationSpeedMin: 1
   rotationSpeedMax: 3
-  dieDelay: 0.3
-  maxHealth: 22
+  dieDelay: 0.05
+  maxHealth: 1
   diePrefab: {fileID: 0}
 --- !u!54 &4868814837026784635
 Rigidbody:
@@ -84,7 +84,7 @@ MeshCollider:
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: -2606572671717990250, guid: 8bf80d8c4100c36478e6ef0a46aa577a, type: 3}
+  m_Mesh: {fileID: -2606572671717990250, guid: f47adbca27cbb6d43848a8d0114ea9a8, type: 3}
 --- !u!33 &2806291974704803323
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -92,7 +92,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2249968830287836149}
-  m_Mesh: {fileID: 4130710750510219578, guid: 17fbb36381bf765469f87a54df3f9b4f, type: 3}
+  m_Mesh: {fileID: -2606572671717990250, guid: f47adbca27cbb6d43848a8d0114ea9a8, type: 3}
 --- !u!23 &3696980286042560586
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -112,7 +112,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4b070a6e278bb8c43898e9d964b3aca6, type: 2}
+  - {fileID: 2100000, guid: 896104e502cf8274b9b4b02cc51a81b7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -144,7 +144,7 @@ Animator:
   m_GameObject: {fileID: 2249968830287836149}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 209e4d5b4124d0542beaa7e4fcebd0fa, type: 2}
+  m_Controller: {fileID: 9100000, guid: 7f462b7af2c8ba04da335d4b047803b3, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
