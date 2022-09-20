@@ -84,6 +84,7 @@ public class UIController : MonoBehaviour
         // gameUI.SetActive(false);
 
         highscores.GetHighscores(3);
+        print("Getting Highscores");
         highscores.OnHighscoresReceived += UpdateHighscores;
 
         // if(GameController.instance.Score > GameController.instance.HighScore)

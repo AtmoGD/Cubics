@@ -80,6 +80,8 @@ public class GameController : MonoBehaviour
     {
         IsGameOver = true;
 
+        print("Game Over");
+
         UIController.instance.GameOver();
 
         StartCoroutine(SpawnController.instance.RemoveAll());
